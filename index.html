@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WritoFest 2K25 | ScriptInk</title>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    * {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif;}
+
+    body {
+      background: linear-gradient(135deg, #0a0030, #001a66 70%, #3a0ca3);
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:start;
+      min-height:100vh;
+      overflow-x:hidden;
+      position:relative;
+      padding:40px 20px;
+    }
+
+    /* Floating sparkles background */
+    .sparkle {
+      position:absolute;
+      width:6px; height:6px;
+      background: radial-gradient(circle, gold, transparent);
+      border-radius:50%;
+      opacity:0.8;
+      animation: floatSparkle 8s linear infinite;
+      z-index:0;
+    }
+    @keyframes floatSparkle {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      width:100%;
+      max-width:700px;
+      margin-bottom:25px;
+      z-index:10;
+    }
+
+    header img {
+      width:70px; height:70px;
+      border-radius:50%;
+      box-shadow:0 0 15px gold;
+      animation: floatLogo 3s ease-in-out infinite;
+    }
+    @keyframes floatLogo {0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
+    header h1 {
+      font-size:1.5rem;
+      font-weight:600;
+      letter-spacing:1px;
+      background: linear-gradient(90deg, #ffcc70, #ff7eb3, #9face6);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .event-title {
+      font-size:2.8rem;
+      font-weight:800;
+      text-align:center;
+      background:linear-gradient(90deg, #ffcc70, #ff7eb3, #9face6);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      margin-bottom:15px;
+      animation: floatZoom 5s ease-in-out infinite;
+    }
+    @keyframes floatZoom {
+      0%,100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.1); }
+    }
+
+    .subtitle {
+      font-size:1.2rem;
+      color:gold;
+      text-shadow:0 0 10px rgba(255,215,0,0.7);
+      animation:textPulse 2s infinite;
+      margin-bottom:20px;
+      text-align:center;
+    }
+    @keyframes textPulse {
+      0%,100% {opacity:0.8; transform:scale(1);}
+      50% {opacity:1; transform:scale(1.1);}
+    }
+
+    .highlight-card {
+      background: rgba(255,255,255,0.1);
+      border-radius:15px;
+      padding:25px;
+      margin:20px 0;
+      width:100%;
+      max-width:700px;
+      text-align:center;
+      backdrop-filter:blur(12px);
+      box-shadow:0 0 25px rgba(255,255,255,0.15);
+      transition:transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .highlight-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px rgba(255,215,0,0.3);
+    }
+
+    .highlight-card h3 {
+      color:gold;
+      font-size:1.5rem;
+      margin-bottom:10px;
+      text-shadow:0 0 15px #ffcc33;
+    }
+
+    .highlight-card p {
+      font-size:1rem;
+      line-height:1.6;
+      color:#fff;
+    }
+
+    form {
+      background: rgba(255,255,255,0.15);
+      padding:25px;
+      border-radius:20px;
+      max-width:700px;
+      width:100%;
+      backdrop-filter:blur(10px);
+      box-shadow:0 0 25px rgba(0,0,0,0.3);
+      display:flex;
+      flex-direction:column;
+      gap:15px;
+      z-index:10;
+    }
+
+    input, select {
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      border:none;
+      font-size:1rem;
+      color:#000;
+      background-color:#fff;
+    }
+
+    button {
+      background:linear-gradient(90deg, #8a2be2, #001f6b);
+      color:#fff;
+      font-size:1.1rem;
+      font-weight:600;
+      border:none;
+      border-radius:10px;
+      padding:14px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    button:hover {
+      background:linear-gradient(90deg, #001f6b, #8a2be2);
+      transform:scale(1.05);
+    }
+
+    .about {
+      margin-top:30px;
+      max-width:700px;
+      text-align:center;
+      background:rgba(255,255,255,0.08);
+      padding:20px;
+      border-radius:15px;
+      backdrop-filter:blur(10px);
+      box-shadow:0 0 20px rgba(255,255,255,0.1);
+    }
+
+    .about h2 {
+      font-size:1.5rem;
+      color:gold;
+      margin-bottom:10px;
+    }
+
+    .about p {
+      font-size:1rem;
+      color:#e6e6e6;
+      line-height:1.6;
+    }
+
+    footer {
+      margin-top:25px;
+      text-align:center;
+      font-size:0.9rem;
+      opacity:0.85;
+    }
+
+    footer small {
+      display:block;
+      margin-top:8px;
+      color:gold;
+    }
+
+    @media (max-width:600px){
+      .event-title {font-size:2.1rem;}
+      header h1 {font-size:1.2rem;}
+    }
+    
+
+    
+  .register-now {
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(90deg, #fff8dc, #ffd700, #ffcc33, #fff8dc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 15px rgba(255,215,0,0.6);
+  animation: goldShine 4s linear infinite, textPulse 3s ease-in-out infinite;
+  padding-bottom: 10px;
+}
+
+@keyframes goldShine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes textPulse {
+  0%,100% { transform: scale(1); text-shadow: 0 0 10px gold, 0 0 30px #ffd700; }
+  50% { transform: scale(1.08); text-shadow: 0 0 25px #ffec8b, 0 0 45px gold; }
+}
+
+/* ✨ Sparkle underline animation */
+.register-now::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, #ffd700, #fff8dc, #ffd700, transparent);
+  border-radius: 3px;
+  animation: underlineFlow 3s linear infinite;
+  box-shadow: 0 0 15px rgba(255,215,0,0.8);
+}
+
+@keyframes underlineFlow {
+  0% { background-position: 0% 50%; opacity: 0.8; }
+  50% { background-position: 100% 50%; opacity: 1; }
+  100% { background-position: 0% 50%; opacity: 0.8; }
+}
+
+.register-now:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 15px gold);
+  letter-spacing: 3px;
+  transition: all 0.3s ease;
+}
+
+  </style>
+</head>
+
+<body>
+  <!-- floating sparkles -->
+  <script>
+    for(let i=0;i<60;i++){
+      const sp=document.createElement('div');
+      sp.className='sparkle';
+      sp.style.left=Math.random()*100+'vw';
+      sp.style.animationDelay=(Math.random()*8)+'s';
+      sp.style.background=Math.random()>0.5?'radial-gradient(circle, gold, transparent)':'radial-gradient(circle, silver, transparent)';
+      document.body.appendChild(sp);
+    }
+  </script>
+
+  <header data-aos="fade-down">
+    <h1>ScriptInk Presents</h1>
+    <img src="https://image2url.com/images/1761848830756-28016110-c0cf-4752-ad29-b6e638a23b68.jpg" alt="ScriptInk Logo">
+  </header>
+
+  <div class="event-title" data-aos="zoom-in">✨ WritoFest 2K25 ✨</div>
+  <div class="subtitle" data-aos="fade-up">Where Words Create Magic ✍</div>
+
+  <div class="highlight-card" data-aos="fade-up">
+    <p>Words. Emotions. Expression. The stage is set for <strong>WritoFest 2K25</strong> — a celebration of storytelling, poetry, and creativity! 🌟  
+      Every word paints a picture, every emotion tells a story. Let your imagination take center stage and watch magic unfold as words meet worlds. ✨</p>
+  </div>
+
+  <div class="highlight-card" data-aos="zoom-in">
+    <h3>🏆 Prizes Worth ₹10,000!</h3>
+    <p>🎖 Certificates, 📜 Attendance & 🎁 Recognition for All!</p>
+    <p>📚 Categories: Story • Poetry • Essay</p>
+    <p>🗣 Languages: English • Hindi • Kannada</p>
+  </div>
+
+  <div class="highlight-card" data-aos="fade-up">
+    <p>📅 <strong>Date:</strong> November 15, 2025<br>
+    📍 <strong>Venue:</strong> Media Centre, SIT</p>
+  </div>
+
+  <div class="register-now" data-aos="fade-up"> Register Now to Participate!</div>
+
+  <form id="regForm" data-aos="zoom-in">
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required>
+    <input type="text" name="usn" placeholder="USN / College ID" required>
+    <select name="branch" required>
+      <option value="">Select Branch</option>
+      <option>CSE</option>
+      <option>CSE (AIML)</option>
+      <option>AI & DS</option>
+      <option>ECE</option>
+      <option>EEE</option>
+      <option>ETE</option>
+      <option>ME</option>
+      <option>CV</option>
+      <option>BT</option>
+      <option>Chemical</option>
+      <option>Other</option>
+    </select>
+    <select name="event" required>
+      <option value="">Select Category</option>
+      <option>Story</option>
+      <option>Poetry</option>
+      <option>Essay</option>
+    </select>
+    <button type="submit">Register & Proceed</button>
+  </form>
+
+  <div class="about" data-aos="fade-up">
+    <h2>About ScriptInk 💫</h2>
+    <p><strong>ScriptInk</strong> is the official creative and technical club of Siddaganga Institute of Technology — where innovation meets imagination!  
+      From storytelling and poetry to web, app, and graphic design — we’re a collective of creators, developers, and dreamers.  
+      Our flagship events <strong>WritoFest</strong> and <strong>Rage</strong> bring together writers, designers, and coders through workshops and challenges.  
+      Join us, and let your ideas ink the future! 🚀</p>
+  </div>
+
+  <footer>
+    <p>Follow us for updates 👇<br>📸 Instagram | ▶ YouTube</p>
+    <small>Made with ❤️ by ScriptInk Team</small>
+  </footer>
+
+  
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init();
+
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("regForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const submitBtn = form.querySelector("button[type='submit']");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    try {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbw19N2qt-CweFCf5Saio6Q1HzSnvy6NJ6oCRqDlvxzUtYKxOqJXm71OnMKJ9rmdUoXJyQ/exec", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        // Redirect to Thank You page
+        const name = formData.get("name");
+        window.location.href = "thankyou.html";
+      } else {
+        alert("❌ Submission failed. Try again later.");
+      }
+    } catch (error) {
+      alert("⚠️ Network error. Please check your connection.");
+      console.error("Fetch error:", error);
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Register & Proceed";
+  });
+});
+</script>
+
+
+
+</body>
+</html>

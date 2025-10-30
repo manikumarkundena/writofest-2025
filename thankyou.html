@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You | WritoFest 2K25</title>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    * {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif;}
+
+    body {
+      background: linear-gradient(135deg, #0a0030, #001a66 70%, #3a0ca3);
+      color:#fff;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      position:relative;
+      text-align:center;
+      padding:20px;
+    }
+
+    /* Floating sparkles */
+    .sparkle {
+      position:absolute;
+      width:6px; height:6px;
+      border-radius:50%;
+      background: radial-gradient(circle, gold, transparent);
+      opacity:0.8;
+      animation: floatSparkle 8s linear infinite;
+      z-index:0;
+    }
+    @keyframes floatSparkle {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    .thank-box {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 40px 25px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(255,255,255,0.15);
+      z-index:10;
+      max-width: 700px;
+      width: 95%;
+    }
+
+    h1 {
+      font-size:2.3rem;
+      font-weight:800;
+      background: linear-gradient(90deg, #ffcc70, #ff7eb3, #9face6);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation: glow 3s ease-in-out infinite alternate;
+      margin-bottom: 15px;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px rgba(255,255,255,0.4); }
+      to { text-shadow: 0 0 25px rgba(255,255,255,1); }
+    }
+
+    p {
+      font-size:1.05rem;
+      margin-bottom:25px;
+      color:#eee;
+      line-height:1.6;
+    }
+
+    .join-links a {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      text-decoration:none;
+      font-weight:600;
+      color:#fff;
+      background: linear-gradient(90deg, #8a2be2, #001f6b);
+      border-radius:12px;
+      padding:14px 22px;
+      margin:10px;
+      transition:0.3s;
+      box-shadow:0 0 15px rgba(255,255,255,0.2);
+    }
+
+    .join-links a:hover {
+      transform:scale(1.08);
+      background: linear-gradient(90deg, #001f6b, #8a2be2);
+      box-shadow:0 0 25px rgba(255,215,0,0.5);
+    }
+
+    .join-links i {
+      font-size:1.3rem;
+    }
+
+    .footer-text {
+      margin-top:30px;
+      color:gold;
+      font-size:0.95rem;
+    }
+
+    /* Confetti animation */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: gold;
+      opacity: 0.9;
+      top: -10px;
+      z-index: 5;
+      border-radius: 50%;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    @media(max-width:600px){
+      h1{font-size:1.9rem;}
+      p{font-size:0.95rem;}
+      .join-links a{padding:12px 18px; font-size:0.9rem;}
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    // Floating sparkles
+    for(let i=0;i<60;i++){
+      const sp=document.createElement('div');
+      sp.className='sparkle';
+      sp.style.left=Math.random()*100+'vw';
+      sp.style.animationDelay=(Math.random()*8)+'s';
+      sp.style.background=Math.random()>0.5?'radial-gradient(circle, gold, transparent)':'radial-gradient(circle, silver, transparent)';
+      document.body.appendChild(sp);
+    }
+
+    // Confetti burst effect
+    function createConfetti() {
+      for (let i = 0; i < 80; i++) {
+        const conf = document.createElement('div');
+        conf.className = 'confetti';
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.backgroundColor = ['#FFD700', '#FF69B4', '#ADFF2F', '#1E90FF'][Math.floor(Math.random()*4)];
+        conf.style.animationDuration = (Math.random()*3 + 3) + 's';
+        conf.style.width = conf.style.height = Math.random() * 8 + 4 + 'px';
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 6000);
+      }
+    }
+    window.onload = createConfetti;
+  </script>
+
+  <div class="thank-box" data-aos="zoom-in">
+    <h1>🎉 Thank You for Registering! 🎉</h1>
+    <p>You’ve successfully joined <strong>WritoFest 2K25</strong>!  
+      We can’t wait to see your creativity shine on stage ✨  
+      Stay connected with us for all event updates & announcements 👇</p>
+
+    <div class="join-links" data-aos="fade-up">
+      <a href="https://chat.whatsapp.com/your-group-link" target="_blank">
+        <i class="fab fa-whatsapp"></i> Join WhatsApp Group
+      </a>
+      <a href="https://instagram.com/scriptink.sit" target="_blank">
+        <i class="fab fa-instagram"></i> Follow on Instagram
+      </a>
+    </div>
+
+    <div class="footer-text" data-aos="fade-up">
+      Made with ❤️ by ScriptInk Team
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({duration:1000, once:true});</script>
+</body>
+</html>
