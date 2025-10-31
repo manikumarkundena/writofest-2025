@@ -1,0 +1,418 @@
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    * {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif;}
+
+    body {
+      background: linear-gradient(135deg, #0a0030, #001a66 70%, #3a0ca3);
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:start;
+      min-height:100vh;
+      overflow-x:hidden;
+      position:relative;
+      padding:40px 20px;
+    }
+
+    /* === NEW MOUSE GLOW === */
+    .mouse-glow {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(
+        circle,
+        rgba(255, 215, 0, 0.15) 0%, /* Gold center */
+        rgba(138, 43, 226, 0.1) 40%, /* Purple middle */
+        rgba(10, 0, 48, 0) 70%      /* Transparent outer edge */
+      );
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1; 
+      pointer-events: none;
+    }
+
+    /* Floating sparkles background */
+    .sparkle {
+      position:absolute;
+      width:6px; height:6px;
+      background: radial-gradient(circle, gold, transparent);
+      border-radius:50%;
+      opacity:0.8;
+      animation: floatSparkle 8s linear infinite;
+      z-index:0;
+    }
+    @keyframes floatSparkle {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      width:100%;
+      max-width:700px;
+      margin-bottom:25px;
+      z-index:10;
+    }
+
+    header img {
+      width:70px; height:70px;
+      border-radius:50%;
+      box-shadow:0 0 15px gold;
+      animation: floatLogo 3s ease-in-out infinite;
+      object-fit: cover;
+    }
+    @keyframes floatLogo {0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
+    header h1 {
+      font-size:1.5rem;
+      font-weight:600;
+      letter-spacing:1px;
+      background: linear-gradient(90deg, #ffcc70, #ff7eb3, #9face6);
+      -webkit-background-clip:text;
+      background-clip: text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .event-title {
+      font-size:2.8rem;
+      font-weight:800;
+      text-align:center;
+      background:linear-gradient(90deg, #ffcc70, #ff7eb3, #9face6);
+      -webkit-background-clip:text;
+      background-clip: text;
+      -webkit-text-fill-color:transparent;
+      margin-bottom:15px;
+      animation: floatZoom 5s ease-in-out infinite;
+    }
+    @keyframes floatZoom {
+      0%,100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.1); }
+    }
+
+    .subtitle {
+      font-size:1.2rem;
+      color:gold;
+      text-shadow:0 0 10px rgba(255,215,0,0.7);
+      animation:textPulse 2s infinite;
+      margin-bottom:20px;
+      text-align:center;
+    }
+    @keyframes textPulse {
+      0%,100% {opacity:0.8; transform:scale(1);}
+      50% {opacity:1; transform:scale(1.1);}
+    }
+
+    .highlight-card {
+      background: rgba(255,255,255,0.1);
+      border-radius:15px;
+      padding:25px;
+      margin:20px 0;
+      width:100%;
+      max-width:700px;
+      text-align:center;
+      backdrop-filter:blur(12px);
+      box-shadow:0 0 25px rgba(255,255,255,0.15);
+      transition:transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .highlight-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px rgba(255,215,0,0.3);
+    }
+
+    .highlight-card h3 {
+      color:gold;
+      font-size:1.5rem;
+      margin-bottom:10px;
+      text-shadow:0 0 15px #ffcc33;
+    }
+
+    .highlight-card p {
+      font-size:1rem;
+      line-height:1.6;
+      color:#fff;
+    }
+
+    form {
+      background: rgba(255,255,255,0.15);
+      padding:25px;
+      border-radius:20px;
+      max-width:700px;
+      width:100%;
+      backdrop-filter:blur(10px);
+      box-shadow:0 0 25px rgba(0,0,0,0.3);
+      display:flex;
+      flex-direction:column;
+      gap:15px;
+      z-index:10;
+    }
+
+    input, select, textarea {
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      border: 1px solid transparent; 
+      font-size:1rem;
+      color:#000;
+      background-color:#fff;
+      transition: box-shadow 0.3s, border-color 0.3s; 
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 80px;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    ::placeholder {
+        color: #777;
+        opacity: 1;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: gold;
+        box-shadow: 0 0 10px 2px rgba(255, 215, 0, 0.5);
+    }
+
+    button {
+      background:linear-gradient(90deg, #8a2be2, #001f6b);
+      color:#fff;
+      font-size:1.1rem;
+      font-weight:600;
+      border:none;
+      border-radius:10px;
+      padding:14px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    button:hover {
+      background:linear-gradient(90deg, #001f6b, #8a2be2);
+      transform:scale(1.05);
+    }
+
+    .about {
+      margin-top:30px;
+      max-width:700px;
+      text-align:center;
+      background:rgba(255,255,255,0.08);
+      padding:20px;
+      border-radius:15px;
+      backdrop-filter:blur(10px);
+      box-shadow:0 0 20px rgba(255,255,255,0.1);
+    }
+
+    .about h2 {
+      font-size:1.5rem;
+      color:gold;
+      margin-bottom:10px;
+    }
+
+    .about p {
+      font-size:1rem;
+      color:#e6e6e6;
+      line-height:1.6;
+    }
+
+    /* === NEW FOOTER STYLES === */
+    footer {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.85;
+      width: 100%;
+    }
+    
+    .follow-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ffd700; /* Gold color */
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      margin-bottom: 15px; /* Space before icons */
+    }
+
+    .social-links {
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap; /* Allows icons to wrap on small screens */
+      justify-content: center;
+      gap: 12px; /* Adds space between icons */
+    }
+
+    .social-links a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.4rem; /* Icon size */
+      width: 42px;  /* Circle size */
+      height: 42px; /* Circle size */
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: gold;
+      background: rgba(255, 215, 0, 0.2);
+      border-color: gold;
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    footer small {
+      display: block;
+      color: gold;
+      font-weight: 500;
+    }
+    
+    .copyright {
+      font-size: 0.85rem;
+      color: #fff;
+      opacity: 0.7; /* Make it subtle */
+      margin-top: 15px; /* Space after the "Made with" line */
+    }
+    /* === END FOOTER STYLES === */
+    
+    .register-now {
+      font-size: 1.6rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      display: inline-block;
+      background: linear-gradient(90deg, #fff8dc, #ffd700, #ffcc33, #fff8dc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(255,215,0,0.6);
+      animation: goldShine 4s linear infinite, textPulse 3s ease-in-out infinite;
+      padding-bottom: 10px;
+    }
+
+    @keyframes goldShine {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes textPulse {
+      0%,100% { transform: scale(1); text-shadow: 0 0 10px gold, 0 0 30px #ffd700; }
+      50% { transform: scale(1.08); text-shadow: 0 0 25px #ffec8b, 0 0 45px gold; }
+    }
+
+    .register-now::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, #ffd700, #fff8dc, #ffd700, transparent);
+      border-radius: 3px;
+      animation: underlineFlow 3s linear infinite;
+      box-shadow: 0 0 15px rgba(255,215,0,0.8);
+    }
+
+    @keyframes underlineFlow {
+      0% { background-position: 0% 50%; opacity: 0.8; }
+      50% { background-position: 100% 50%; opacity: 1; }
+      100% { background-position: 0% 50%; opacity: 0.8; }
+    }
+
+    .register-now:hover {
+      transform: scale(1.08);
+      filter: drop-shadow(0 0 15px gold);
+      letter-spacing: 3px;
+      transition: all 0.3s ease;
+    }
+
+    /* === NEW MOBILE RESPONSIVE FIXES === */
+    @media (max-width:600px){
+      body {
+        padding: 30px 15px; /* More vertical, less horizontal padding */
+      }
+      
+      header {
+        justify-content: space-between;
+        flex-direction: row; /* Go back to side-by-side */
+      }
+
+      header h1 {
+        font-size:1.2rem;
+        text-align: left; /* Align text left */
+      }
+      
+      header img {
+        width: 60px; /* Slightly smaller logo */
+        height: 60px;
+      }
+
+      .event-title {
+        font-size: 2.1rem; /* Smaller main event title */
+      }
+      
+      .subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .highlight-card {
+        padding: 20px; /* Less padding inside cards */
+        margin: 15px 0;
+      }
+      
+      .highlight-card h3 {
+        font-size: 1.3rem;
+      }
+      
+      .highlight-card p {
+        font-size: 0.95rem;
+      }
+      
+      .register-now {
+        font-size: 1.2rem; /* Make this smaller to prevent wrapping */
+        letter-spacing: 1.5px;
+      }
+      
+      form {
+        padding: 20px;
+      }
+
+      .about {
+        padding: 20px;
+      }
+      
+      .about h2 {
+        font-size: 1.4rem;
+      }
+      
+      .about p {
+        font-size: 0.95rem;
+      }
+      
+      .follow-text {
+        font-size: 1.1rem;
+      }
+      
+      .social-links {
+        gap: 10px;
+      }
+      .social-links a {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+      }
+      
+      .copyright {
+        font-size: 0.8rem;
+      }
+    }
+    
