@@ -3,10 +3,12 @@ require('dotenv').config(); // Make sure it can read the .env variables
 
 // 1. Create your email "transporter"
 // This uses the secrets you added to Render
+// 1. Create your email "transporter"
+// This uses the secrets you added to Render
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  secure: false, // Port 587 uses TLS
+  port: process.env.EMAIL_PORT, // This will now be 465 from Render
+  secure: true, // <-- THIS MUST BE TRUE FOR PORT 465
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
