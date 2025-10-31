@@ -15,9 +15,6 @@ body {
   padding:20px;
 }
 
-/* =================================== */
-/* === 1. NEW CSS FOR MOUSE GLOW === */
-/* =================================== */
 .mouse-glow {
   position: fixed;
   left: 50%;
@@ -36,7 +33,6 @@ body {
   pointer-events: none;
 }
 
-/* Floating sparkles */
 .sparkle {
   position:absolute;
   width:6px; height:6px;
@@ -62,14 +58,12 @@ body {
   z-index:10;
   max-width: 700px;
   width: 95%;
-  /* Added for smoother resizing */
   transition: all 0.3s ease;
 }
 
 h1 {
   font-size:2.3rem;
   font-weight:800;
-  /* === MODIFIED GRADIENT: Replaced #9face6 with a vibrant purple === */
   background: linear-gradient(90deg, #ffcc70, #ff7eb3, #be4dff);
   -webkit-background-clip:text;
   background-clip: text; 
@@ -91,7 +85,6 @@ p {
 }
 
 .join-links {
-  /* This ensures the buttons don't overflow on medium screens */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -123,68 +116,6 @@ p {
 .join-links i {
   font-size:1.3rem;
 }
-
-.footer-text {
-  margin-top:30px;
-  color:gold;
-  font-size:0.95rem;
-}
-
-/* Confetti animation */
-.confetti {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background-color: gold;
-  opacity: 0.9;
-  top: -10px;
-  z-index: 5;
-  border-radius: 50%;
-  animation: fall linear forwards;
-}
-
-@keyframes fall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-}
-
-/* === NEW MOBILE RESPONSIVE FIXES === */
-@media(max-width:600px){
-  body {
-    padding: 20px 15px;
-  }
-  
-  .thank-box {
-    padding: 30px 20px; /* Less padding on mobile */
-    width: 100%; /* Use full width */
-  }
-
-  h1{
-    font-size:1.9rem;
-    line-height: 1.3; /* Added for better text flow */
-  }
-  
-  p{
-    font-size:0.95rem;
-  }
-  
-  .join-links {
-    flex-direction: column; /* Stack buttons vertically */
-    align-items: stretch; /* Make buttons full width */
-  }
-  
-  .join-links a{
-    padding: 14px 18px; /* Standardized padding */
-    font-size:0.95rem;
-    margin: 8px 0; /* Adjust margin for vertical stack */
-  }
-  
-  .footer-text {
-    margin-top: 20px;
-    font-size: 0.9rem;
-  }
-}
-/* === NEW STYLES FOR thank-you.css === */
 
 /* Event Details Section */
 .event-details {
@@ -218,6 +149,24 @@ p {
   color: gold;
 }
 
+
+/* Confetti animation */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background-color: gold;
+  opacity: 0.9;
+  top: -10px;
+  z-index: 5;
+  border-radius: 50%;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
 
 /* --- Official Footer Styles --- */
 footer {
@@ -280,8 +229,37 @@ footer small {
   margin-top: 15px;
 }
 
-/* --- Mobile Fixes for New Footer --- */
-@media (max-width: 600px) {
+/* === CONSOLIDATED MOBILE FIXES === */
+@media(max-width:600px){
+  body {
+    padding: 20px 15px;
+  }
+  
+  .thank-box {
+    padding: 30px 20px;
+    width: 100%;
+  }
+
+  h1{
+    font-size:1.9rem;
+    line-height: 1.3;
+  }
+  
+  p{
+    font-size:0.95rem;
+  }
+  
+  .join-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .join-links a{
+    padding: 14px 18px;
+    font-size:0.95rem;
+    margin: 8px 0;
+  }
+  
   .follow-text {
     font-size: 1.1rem;
   }
