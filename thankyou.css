@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 * {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif;}
 
+/* Find the old 'body' style in thankyou.css and replace it with this: */
+
 body {
   background: linear-gradient(135deg, #0a0030, #001a66 70%, #3a0ca3);
   color:#fff;
@@ -8,8 +10,8 @@ body {
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
-  overflow:hidden;
+  justify-content: start;   /* <-- FIX 1: Aligns content to the top */
+  overflow-x: hidden;       /* <-- FIX 2: Prevents side-scroll, allows vertical */
   position:relative;
   text-align:center;
   padding:20px;
