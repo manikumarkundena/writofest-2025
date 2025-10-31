@@ -184,3 +184,118 @@ p {
     font-size: 0.9rem;
   }
 }
+/* === NEW STYLES FOR thank-you.css === */
+
+/* Event Details Section */
+.event-details {
+  border-top: 1px solid rgba(255, 215, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+  padding: 15px 0;
+  margin-bottom: 25px;
+}
+.event-details p {
+  margin-bottom: 8px; /* Tighter spacing for details */
+  font-size: 1rem;
+  font-weight: 500;
+}
+.event-details p:last-child {
+  margin-bottom: 0;
+}
+
+/* Register Another Link */
+.register-another {
+  margin-top: 20px;
+}
+.register-another a {
+  color: #fff;
+  opacity: 0.8;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  transition: opacity 0.3s;
+}
+.register-another a:hover {
+  opacity: 1;
+  color: gold;
+}
+
+
+/* --- Official Footer Styles --- */
+footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  width: 100%;
+}
+
+.follow-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  margin-bottom: 15px;
+}
+
+.social-links {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 12px; 
+}
+
+.social-links a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.4rem; 
+  width: 42px;  
+  height: 42px; 
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  color: gold;
+  background: rgba(255, 215, 0, 0.2);
+  border-color: gold;
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+footer small {
+  display: block;
+  color: gold;
+  font-weight: 500;
+}
+
+.copyright {
+  font-size: 0.85rem;
+  color: #fff;
+  opacity: 0.7;
+  margin-top: 15px;
+}
+
+/* --- Mobile Fixes for New Footer --- */
+@media (max-width: 600px) {
+  .follow-text {
+    font-size: 1.1rem;
+  }
+  
+  .social-links {
+    gap: 10px;
+  }
+  .social-links a {
+    width: 40px;
+    height: 40px;
+    font-size: 1.3rem;
+  }
+  
+  .copyright {
+    font-size: 0.8rem;
+  }
+}

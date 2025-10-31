@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thank You | WritoFest 2K25</title>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <link rel="stylesheet" href="thankyou.css" />
-</head>
-
 <body>
 
   <div class="mouse-glow"></div>
-
   <script>
     // Floating sparkles
     for(let i=0;i<60;i++){
@@ -24,7 +11,6 @@
       sp.style.background=Math.random()>0.5?'radial-gradient(circle, gold, transparent)':'radial-gradient(circle, silver, transparent)';
       document.body.appendChild(sp);
     }
-
     // Confetti burst effect
     function createConfetti() {
       for (let i = 0; i < 80; i++) {
@@ -40,41 +26,57 @@
     }
     window.onload = createConfetti;
   </script>
-
   <div class="thank-box" data-aos="zoom-in">
     <h1>🎉 Thank You for Registering! 🎉</h1>
     <p>You’ve successfully joined <strong>WritoFest 2K25</strong>!  
-       We can’t wait to see your creativity shine on stage ✨  
-       Stay connected with us for all event updates & announcements 👇</p>
+       We can’t wait to see your creativity shine on stage ✨</p>
+
+    <div class="event-details">
+      <p>📅 <strong>Date:</strong> November 15, 2025</p>
+      <p>📍 <strong>Venue:</strong> Media Centre, SIT</p>
+    </div>
+    
+    <p>Stay connected for all event updates & announcements 👇</p>
 
     <div class="join-links" data-aos="fade-up">
-      <a href="https://chat.whatsapp.com/LD8332WOEXaKxk1MJbSFh2" target="_blank">
+      <a href="https://chat.whatsapp.com/LD8332WOEXaKxk1MJbSFh2" target="_blank" class="button-primary">
         <i class="fab fa-whatsapp"></i> Join WhatsApp Group
       </a>
-      <a href="https://www.instagram.com/scriptink_official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+      <a href="https://www.instagram.com/scriptink_official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="button-primary">
         <i class="fab fa-instagram"></i> Follow on Instagram
       </a>
     </div>
 
-    <div class="footer-text" data-aos="fade-up">
-       Made with ❤️ by ScriptInk Team
+    <div class="register-another" data-aos="fade-up">
+      <a href="index.html">Register for another event or a friend?</a>
     </div>
   </div>
+
+  <footer data-aos="fade-up">
+    <p class="follow-text">Follow us</p>
+    <div class="social-links">
+      <a href="https://scriptink.in" target="_blank" aria-label="Our Website"><i class="fas fa-globe"></i></a>
+      <a href="https://play.google.com/store/apps/details?id=com.scriptink.official" target="_blank" aria-label="Our Mobile App"><i class="fab fa-google-play"></i></a>
+      <a href="https://t.me/scriptink" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+      <a href="https://instagram.com/scriptink_official" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com/company/scriptink-official" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.youtube.com/@ScriptInkOfficial" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://g.page/Scriptink" target="_blank" aria-label="Find us on Maps"><i class="fas fa-map-marker-alt"></i></a>
+    </div>
+    <small>Made with ❤️ by ScriptInk Team</small>
+    <p class="copyright">&copy; 2025 ScriptInk. All Rights Reserved.</p>
+  </footer>
+
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   
   <script>
     AOS.init({duration:1000, once:true});
 
-    // We add the listener here to combine all our scripts
     document.addEventListener("DOMContentLoaded", function () {
-      
       const glow = document.querySelector('.mouse-glow');
-
-      // Check if the glow element exists before adding the listener
       if (glow) {
         document.addEventListener('mousemove', (e) => {
-          // Use pageX/pageY to track the cursor even when scrolled
           glow.style.left = e.pageX + 'px';
           glow.style.top = e.pageY + 'px';
         });
@@ -82,4 +84,3 @@
     });
   </script>
 </body>
-</html>
