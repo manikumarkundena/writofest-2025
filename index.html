@@ -192,10 +192,9 @@ document.addEventListener("DOMContentLoaded", function () {
         alert(`❌ Submission failed: ${errorResult.message || 'Try again later.'}`);
       }
     } catch (error) {
-      alert("⚠️ Network error. Is your backend server running?");
+      alert("⚠️ A network error occurred. Please check your connection and try again.");
       console.error("Fetch error:", error);
     }
-
     submitBtn.disabled = false;
     submitBtn.textContent = "Register & Proceed";
   });
