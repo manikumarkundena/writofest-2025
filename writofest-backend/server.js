@@ -1,8 +1,8 @@
+// Import required packages
 require('dotenv').config(); 
 const express = require('express');
 const cors = require('cors'); 
 const { Pool } = require('pg');
-const { sendConfirmationEmail } = require('./email'); // <-- 1. IMPORT YOUR NEW EMAIL FUNCTION
 
 // Initialize express app
 const app = express();
@@ -26,29 +26,30 @@ app.get('/', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
+  // Destructure data from the request body
+  // <-- MODIFIED: Added 'message'
   const { name, email, phone, usn, branch, year, event, message } = req.body; 
 
+  // Basic validation
   if (!name || !email || !event) {
     return res.status(400).json({ success: false, message: 'Name, Email, and Event are required.' });
   }
 
+  // <-- MODIFIED: Added 'message' column and $8
   const query = `
     INSERT INTO registrations(name, email, phone, usn, branch, year, event, message) 
     VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
     RETURNING *;
   `;
+  // <-- MODIFIED: Added 'message' to the values array
   const values = [name, email, phone, usn, branch, year, event, message];
 
   try {
-    // 1. Save to Database
+    // Execute the query
     const result = await pool.query(query, values);
     console.log('Registration successful:', result.rows[0]);
     
-    // 2. Send the Email (in the background, "fire and forget")
-    // We don't "await" this, so the user gets a fast response
-    sendConfirmationEmail(name, email, event);
-
-    // 3. Send Success Response to Frontend
+    // Send a success response back to the frontend
     res.status(201).json({ success: true, data: result.rows[0] });
 
   } catch (err) {
