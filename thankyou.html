@@ -25,6 +25,27 @@
       padding:20px;
     }
 
+    /* =================================== */
+    /* === 1. NEW CSS FOR MOUSE GLOW === */
+    /* =================================== */
+    .mouse-glow {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(
+        circle,
+        rgba(255, 215, 0, 0.15) 0%, /* Gold center */
+        rgba(138, 43, 226, 0.1) 40%, /* Purple middle */
+        rgba(10, 0, 48, 0) 70%      /* Transparent outer edge */
+      );
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1; 
+      pointer-events: none;
+    }
+
     /* Floating sparkles */
     .sparkle {
       position:absolute;
@@ -56,8 +77,10 @@
     h1 {
       font-size:2.3rem;
       font-weight:800;
-      background: linear-gradient(90deg, #ffcc70, #ff7eb3, #9face6);
+      /* === MODIFIED GRADIENT: Replaced #9face6 with a vibrant purple === */
+      background: linear-gradient(90deg, #ffcc70, #ff7eb3, #be4dff);
       -webkit-background-clip:text;
+      background-clip: text; 
       -webkit-text-fill-color:transparent;
       animation: glow 3s ease-in-out infinite alternate;
       margin-bottom: 15px;
@@ -134,6 +157,9 @@
 </head>
 
 <body>
+
+  <div class="mouse-glow"></div>
+
   <script>
     // Floating sparkles
     for(let i=0;i<60;i++){
@@ -164,24 +190,42 @@
   <div class="thank-box" data-aos="zoom-in">
     <h1>🎉 Thank You for Registering! 🎉</h1>
     <p>You’ve successfully joined <strong>WritoFest 2K25</strong>!  
-      We can’t wait to see your creativity shine on stage ✨  
-      Stay connected with us for all event updates & announcements 👇</p>
+       We can’t wait to see your creativity shine on stage ✨  
+       Stay connected with us for all event updates & announcements 👇</p>
 
     <div class="join-links" data-aos="fade-up">
-      <a href="https://chat.whatsapp.com/your-group-link" target="_blank">
+      <a href="https://chat.whatsapp.com/LD8332WOEXaKxk1MJbSFh2" target="_blank">
         <i class="fab fa-whatsapp"></i> Join WhatsApp Group
       </a>
-      <a href="https://instagram.com/scriptink.sit" target="_blank">
+      <a href="https://www.instagram.com/scriptink_official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
         <i class="fab fa-instagram"></i> Follow on Instagram
       </a>
     </div>
 
     <div class="footer-text" data-aos="fade-up">
-      Made with ❤️ by ScriptInk Team
+       Made with ❤️ by ScriptInk Team
     </div>
   </div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>AOS.init({duration:1000, once:true});</script>
+  
+  <script>
+    AOS.init({duration:1000, once:true});
+
+    // We add the listener here to combine all our scripts
+    document.addEventListener("DOMContentLoaded", function () {
+      
+      const glow = document.querySelector('.mouse-glow');
+
+      // Check if the glow element exists before adding the listener
+      if (glow) {
+        document.addEventListener('mousemove', (e) => {
+          // Use pageX/pageY to track the cursor even when scrolled
+          glow.style.left = e.pageX + 'px';
+          glow.style.top = e.pageY + 'px';
+        });
+      }
+    });
+  </script>
 </body>
 </html>
