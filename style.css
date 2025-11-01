@@ -416,22 +416,60 @@
       }
     }
     /* === STYLES FOR FREE REGISTRATION IMAGE === */
+/* === PURE GOLD FREE REGISTRATION IMAGE === */
 .free-registration-image {
-  width: 250px; /* Adjust size as needed */
-  height: auto;
-  margin: 15px auto 25px auto;
-  animation: pulseImage 2s infinite alternate; /* Gentle pulse effect */
-  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7)); /* Subtle glow */
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+  animation: rotateCoin 6s linear infinite, goldGlow 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(255, 200, 50, 0.6));
+  margin: 20px auto;
 }
 
-@keyframes pulseImage {
-  from { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7)); }
-  to { transform: scale(1.03); filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1)); }
+/* Subtle golden aura around image */
+.free-registration-image::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center,
+    rgba(255, 200, 50, 0.25) 0%,
+    rgba(255, 160, 0, 0.15) 40%,
+    rgba(0, 0, 0, 0) 75%);
+  filter: blur(6px);
+  z-index: -1;
 }
 
-/* Mobile responsiveness */
+/* Smooth rotation */
+@keyframes rotateCoin {
+  0% { transform: rotateY(0deg) scale(1); }
+  50% { transform: rotateY(180deg) scale(1.04); }
+  100% { transform: rotateY(360deg) scale(1); }
+}
+
+/* Softer golden glow */
+@keyframes goldGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 15px rgba(255, 200, 50, 0.6))
+            drop-shadow(0 0 25px rgba(255, 160, 0, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 22px rgba(255, 215, 80, 0.8))
+            drop-shadow(0 0 35px rgba(255, 185, 0, 0.5));
+  }
+}
+
+/* Gentle floating motion */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Make it responsive */
 @media (max-width: 600px) {
   .free-registration-image {
-    width: 180px; /* Smaller on mobile */
+    width: 160px;
+    height: 160px;
   }
 }
