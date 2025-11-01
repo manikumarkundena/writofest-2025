@@ -415,61 +415,23 @@
         font-size: 0.8rem;
       }
     }
-    .free-registration-circle {
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, rgba(138, 43, 226, 0.2) 100%);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 15px auto 25px auto; /* Center it, adjust top/bottom margin */
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 0 0 50px rgba(138, 43, 226, 0.4);
-  animation: pulseGlow 4s infinite alternate, rotate3D 15s linear infinite;
-  border: 2px solid gold;
-  transition: all 0.3s ease-in-out;
+    /* === STYLES FOR FREE REGISTRATION IMAGE === */
+.free-registration-image {
+  width: 250px; /* Adjust size as needed */
+  height: auto;
+  margin: 15px auto 25px auto;
+  animation: pulseImage 2s infinite alternate; /* Gentle pulse effect */
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7)); /* Subtle glow */
 }
 
-.free-registration-circle:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 35px rgba(255, 215, 0, 0.8), 0 0 70px rgba(138, 43, 226, 0.6);
+@keyframes pulseImage {
+  from { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7)); }
+  to { transform: scale(1.03); filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1)); }
 }
 
-.free-registration-circle span {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #fff; /* White text */
-  text-align: center;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  background: linear-gradient(90deg, #ffcc70, #ff7eb3, #be4dff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Keyframes for animations */
-@keyframes pulseGlow {
-  0% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 0 0 50px rgba(138, 43, 226, 0.4); }
-  100% { box-shadow: 0 0 35px rgba(255, 215, 0, 0.8), 0 0 70px rgba(138, 43, 226, 0.6); }
-}
-
-@keyframes rotate3D {
-  0% { transform: rotateY(0deg); }
-  100% { transform: rotateY(360deg); }
-}
-
-/* Mobile responsiveness for the circle */
+/* Mobile responsiveness */
 @media (max-width: 600px) {
-  .free-registration-circle {
-    width: 160px; /* Smaller on mobile */
-    height: 160px;
-    margin: 10px auto 20px auto;
-  }
-  .free-registration-circle span {
-    font-size: 1rem; /* Smaller text on mobile */
+  .free-registration-image {
+    width: 180px; /* Smaller on mobile */
   }
 }
