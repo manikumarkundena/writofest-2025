@@ -4,8 +4,10 @@ const cors = require('cors');
 const { Pool } = require('pg');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+// Note: Render sets PORT automatically to 10000, so we use its environment variable
+const PORT = process.env.PORT || 3000; 
 
+// --- Database Connection ---
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -13,6 +15,7 @@ const pool = new Pool({
   }
 });
 
+// --- Middleware ---
 app.use(cors()); 
 app.use(express.json());
 
@@ -21,42 +24,85 @@ app.get('/', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-  const { name, email, phone, usn, branch, year, event, message } = req.body; 
+  
+  // --- 1. EXTRACT AND VALIDATE DATA ---
+  // Using simple assignment is the most robust way to get data from the JSON payload
+  const data = req.body;
+  
+  const name = data.name;
+  const email = data.email;
+  const phone = data.phone;
+  const usn = data.usn;
+  const college = data.college;
+  const course = data.course;
+  const branch = data.branch;
+  const year = data.year;
+  const message = data.message;
+  
+  // Events will be under the key 'events[]'
+  let events = data['events[]']; 
 
-  // Updated validation to include USN
-  if (!name || !email || !event || !usn) {
-    return res.status(400).json({ success: false, message: 'Missing required fields.' });
+  // Handle Branch 'Other' Consolidation (if user typed a custom branch)
+  if (branch === 'Other' && data.otherBranch) {
+    data.branch = data.otherBranch;
+  }
+  
+  // --- 2. HANDLE MULTI-SELECT EVENTS ---
+  // Fix: If only one checkbox is selected, Express gives a string, not an array. We must convert.
+  if (typeof events === 'string') {
+      events = [events];
+  }
+  // Convert the array of events into a single, clean comma-separated string for the database
+  const eventsString = Array.isArray(events) ? events.join(', ') : '';
+
+  // --- 3. BASIC VALIDATION CHECK (Critical for the current error) ---
+  if (!name || !email || !eventsString || !usn || !college || !course) {
+    // If this runs, one of the fields is truly empty.
+    console.error('Missing Data Detected. Payload:', req.body);
+    return res.status(400).json({ 
+        success: false, 
+        message: 'Missing required fields. Please ensure all dropdowns and at least one event are selected.' 
+    });
   }
 
   try {
-    // === NEW LOGIC: CHECK FOR DUPLICATES ===
-    // We check if a user with this USN and Name is already in this specific Event
+    // === 4. CHECK FOR DUPLICATES ===
     const checkQuery = `
       SELECT * FROM registrations 
-      WHERE usn = $1 AND name = $2 AND event = $3;
+      WHERE usn = $1 AND name = $2 AND college = $3;
     `;
-    const checkValues = [usn, name, event];
+    const checkValues = [usn, name, college]; 
     
     const existingUser = await pool.query(checkQuery, checkValues);
 
     if (existingUser.rows.length > 0) {
-      // A duplicate was found! Send back a 409 Conflict error.
-      console.log('Duplicate registration blocked:', name, usn, event);
+      console.log('Duplicate registration blocked:', name, usn);
       return res.status(409).json({ 
         success: false, 
-        message: 'You are already registered for this event. Try registering for another event!' 
+        message: 'You have already registered your details. Check your event selections in the WhatsApp group.' 
       });
     }
-    // === END OF NEW LOGIC ===
 
-
-    // If no duplicate, proceed with inserting the new user
+    // === 5. INSERT NEW USER (10 values total) ===
     const insertQuery = `
-      INSERT INTO registrations(name, email, phone, usn, branch, year, event, message) 
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
+      INSERT INTO registrations(name, email, phone, usn, college, course, branch, year, events, message) 
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) 
       RETURNING *;
     `;
-    const insertValues = [name, email, phone, usn, branch, year, event, message];
+    
+    // Value order must match the column order in the query!
+    const insertValues = [
+      name, 
+      email, 
+      phone, 
+      usn, 
+      college, 
+      course, 
+      branch, 
+      year, 
+      eventsString, // The comma-separated string
+      message
+    ];
 
     const result = await pool.query(insertQuery, insertValues);
     console.log('Registration successful:', result.rows[0]);

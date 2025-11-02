@@ -7,12 +7,15 @@
   
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="icon" type="image/png" href="https://image2url.com/images/1761942464379-0e4a5e0b-904b-4161-bec4-79d34f4357da.png">
+  
+  <link rel="icon" type="image/png" href="favicon.png"> 
+  
   <link rel="stylesheet" href="thankyou.css" />
 </head>
 <body>
 
   <div class="mouse-glow"></div>
+  
   <script>
     // Floating sparkles
     for(let i=0;i<60;i++){
@@ -28,7 +31,7 @@
       for (let i = 0; i < 80; i++) {
         const conf = document.createElement('div');
         conf.className = 'confetti';
-        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.left=Math.random()*100+'vw';
         conf.style.backgroundColor = ['#FFD700', '#FF69B4', '#ADFF2F', '#1E90FF'][Math.floor(Math.random()*4)];
         conf.style.animationDuration = (Math.random()*3 + 3) + 's';
         conf.style.width = conf.style.height = Math.random() * 8 + 4 + 'px';
@@ -38,8 +41,10 @@
     }
     window.onload = createConfetti;
   </script>
+  
   <div class="thank-box" data-aos="zoom-in">
-    <h1>🎉 Thank You for Registering! 🎉</h1>
+    <h1>🎉 Thank You, <span id="userNamePlaceholder">for Registering</span>! 🎉</h1>
+    
     <p>You’ve successfully joined <strong>WritoFest 2K25</strong>!  
        We can’t wait to see your creativity shine on stage ✨</p>
 
@@ -85,8 +90,35 @@
   <script>
     AOS.init({duration:1000, once:true});
 
+    // Function to extract the 'name' parameter from the URL
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
       const glow = document.querySelector('.mouse-glow');
+      const userName = getParameterByName('name');
+      const placeholder = document.getElementById('userNamePlaceholder');
+      
+      // Update the heading with the user's name
+      if (userName && placeholder) {
+          if (userName.length > 0) {
+              placeholder.textContent = userName;
+          } else {
+              // If name is empty, reset placeholder to generic text
+              placeholder.textContent = 'for Registering';
+          }
+      } else if (placeholder) {
+          // Fallback if no parameter was found at all
+          placeholder.textContent = 'for Registering';
+      }
+
+      // Mouse glow logic
       if (glow) {
         document.addEventListener('mousemove', (e) => {
           glow.style.left = e.pageX + 'px';
@@ -96,3 +128,4 @@
     });
   </script>
 </body>
+</html>

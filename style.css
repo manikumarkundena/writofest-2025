@@ -473,3 +473,72 @@
     height: 160px;
   }
 }
+/* === STYLES FOR CHECKBOX GROUP === */
+
+.event-checkbox-group {
+    margin-bottom: 15px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Space between each event */
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-container label {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Custom Checkbox Styling (makes them visible/gold) */
+.checkbox-container input[type="checkbox"] {
+    /* Hide default checkbox */
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Create the visible, custom checkbox */
+.checkbox-container label::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid gold;
+    border-radius: 4px;
+    margin-right: 10px;
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+/* Style when checked */
+.checkbox-container input[type="checkbox"]:checked + label::before {
+    background-color: gold;
+    border-color: #fff;
+    box-shadow: 0 0 5px gold;
+}
+
+/* Add a checkmark graphic */
+.checkbox-container input[type="checkbox"]:checked + label::after {
+    content: '\2713'; /* Unicode checkmark */
+    font-size: 14px;
+    color: #0a0030; /* Dark text on gold background */
+    position: absolute;
+    left: 17px; /* Adjust this value to center the checkmark */
+    top: 15px;
+    transform: translateY(-50%);
+}
+
+@media (max-width: 600px) {
+    .checkbox-container input[type="checkbox"]:checked + label::after {
+        left: 14px;
+    }
+}
