@@ -26,7 +26,6 @@ app.get('/', (req, res) => {
 app.post('/register', async (req, res) => {
   
   // --- 1. EXTRACT DATA SAFELY ---
-  // Accessing fields directly from req.body is the most robust method
   const data = req.body;
   
   const name = data.name;
@@ -39,13 +38,15 @@ app.post('/register', async (req, res) => {
   const year = data.year;
   const message = data.message;
   
+  // CRITICAL: New optional field from frontend
+  const referrer_code = data.referrer_code; 
+  
   // Events array is sent under the key 'events[]'
   let events = data['events[]']; 
 
   // --- 2. CONSOLIDATE DATA & CREATE FINAL STRINGS ---
   
   // Handle Branch 'Other' Consolidation
-  // If 'Other' is selected and a custom branch is provided, use the custom value.
   const finalBranch = (branch === 'Other' && data.otherBranch) ? data.otherBranch : branch;
   
   // Handle Multi-Select Events (Convert array to a single comma-separated string)
@@ -55,19 +56,19 @@ app.post('/register', async (req, res) => {
   const eventsString = Array.isArray(events) ? events.join(', ') : '';
 
   // --- 3. ROBUST VALIDATION CHECK ---
-  // We check that ALL fields required for the INSERT query are not empty strings.
+  // Checks all required fields (referrer_code and phone/message are optional)
   if (!name || !email || !eventsString || !usn || !college || !course || !finalBranch || !year) { 
     
     console.error('MISSING REQUIRED DATA PAYLOAD:', req.body);
     
     return res.status(400).json({ 
         success: false, 
-        message: 'Missing required fields. Please ensure all fields are selected (Course, Branch, Year, and at least one Event).' 
+        message: 'Missing required fields. Please ensure all dropdowns and at least one event are selected.' 
     });
   }
 
   try {
-    // === 4. CHECK IF USER EXISTS (UPSERT Logic) ===
+    // === 4. CHECK IF USER EXISTS (The UPSERT Logic) ===
     // We check ONLY by USN, as it is the unique identifier.
     const findQuery = `SELECT * FROM registrations WHERE usn = $1;`;
     const findValues = [usn]; 
@@ -75,7 +76,7 @@ app.post('/register', async (req, res) => {
     const existingUser = await pool.query(findQuery, findValues);
 
     if (existingUser.rows.length > 0) {
-      // === 5. USER FOUND: UPDATE THE EXISTING ROW (Solves the "already registered" error) ===
+      // === 5. USER FOUND: UPDATE THE EXISTING ROW (Prevents "already registered" error) ===
       const updateQuery = `
         UPDATE registrations SET 
           name = $1, 
@@ -86,14 +87,16 @@ app.post('/register', async (req, res) => {
           branch = $6, 
           year = $7, 
           events = $8, 
-          message = $9
-        WHERE usn = $10 
+          message = $9,
+          referrer_code = $10    /* <<< CRITICAL: REFERRAL CODE FIELD */
+        WHERE usn = $11         
         RETURNING *;
       `;
       // Values must match the column order
       const updateValues = [
         name, email, phone, college, course, finalBranch, year, eventsString, message, // $1 to $9
-        usn // $10 (for WHERE clause)
+        referrer_code,                                                                // $10
+        usn                                                                           // $11 (for WHERE clause)
       ];
 
       await pool.query(updateQuery, updateValues);
@@ -105,13 +108,14 @@ app.post('/register', async (req, res) => {
     } else {
       // === 6. USER NOT FOUND: INSERT NEW ROW ===
       const insertQuery = `
-        INSERT INTO registrations(name, email, phone, usn, college, course, branch, year, events, message) 
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) 
+        INSERT INTO registrations(name, email, phone, usn, college, course, branch, year, events, message, referrer_code) 
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) 
         RETURNING *;
       `;
       // Value order must match the column order exactly!
       const insertValues = [
-        name, email, phone, usn, college, course, finalBranch, year, eventsString, message
+        name, email, phone, usn, college, course, finalBranch, year, eventsString, message,
+        referrer_code // <<< CRITICAL: REFERRAL CODE FIELD
       ];
 
       await pool.query(insertQuery, insertValues);
