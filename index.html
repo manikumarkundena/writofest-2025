@@ -113,6 +113,7 @@
         
         </div>
     </div>
+    <input type="text" name="referrer_code" placeholder="Referral Code (SINK0XX) (Optional)">
     
     <textarea name="message" placeholder="Any questions or feedback for the ScriptInk team? (Optional)"></textarea>
     
@@ -166,6 +167,22 @@ AOS.init();
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("regForm");
     
+    // College variables
+    const collegeInput = document.querySelector('input[name="college"]');
+    const defaultCollegeValue = "Siddaganga Institute of Technology, Tumkur";
+
+    // Fix: Hide default value on load to show placeholder
+    if (collegeInput && collegeInput.value === defaultCollegeValue) {
+        collegeInput.value = '';
+    }
+    
+    // Fix: Restore default value if field is left empty
+    collegeInput.addEventListener('blur', function() {
+        if (this.value === '') {
+            this.value = defaultCollegeValue;
+        }
+    });
+
     // Branch variables
     const branchSelect = document.querySelector('select[name="branch"]');
     const otherBranchInput = document.getElementById('otherBranch');
@@ -188,9 +205,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const formData = new FormData(form);
         
-        // --- 1. CRITICAL FIX: ENSURE ALL DATA IS CAPTURED SAFELY ---
-        // Manually construct the data object using formData.get() to ensure all fields, 
-        // especially dropdowns and text inputs, are sent, regardless of whether they were modified.
+        // --- 1. CRITICAL DATA EXTRACTION (Manual, reliable method) ---
+        // This ensures every field is captured using its name attribute
         const data = {
             name: formData.get('name'),
             email: formData.get('email'),
@@ -201,29 +217,30 @@ document.addEventListener("DOMContentLoaded", function () {
             branch: formData.get('branch'),
             year: formData.get('year'),
             message: formData.get('message'),
-            // Note: 'events' field is retrieved separately below.
+            referrer_code: formData.get('referrer_code') // Ensure referrer_code is pulled
         };
         // ----------------------------------------------------------------------
         
         const submitBtn = form.querySelector("button[type='submit']");
         
-        // --- 2. VALIDATION CHECK: ENSURE AT LEAST ONE EVENT IS SELECTED ---
+        // --- 2. VALIDATION CHECK: EVENTS ---
         if (!formData.has('events[]')) {
             alert("⚠️ Please select at least one event category to register.");
             return; 
         }
         
-        // --- 3. CONSOLIDATE 'OTHER' FIELDS (Branch is the only one remaining) ---
-        if (data.branch === 'Other' && formData.get('otherBranch')) {
+        // --- 3. CONSOLIDATE 'OTHER' BRANCH FIELD ---
+        if (data.branch === 'Other' && formData.get('otherBranch')) { 
             data.branch = formData.get('otherBranch');
         }
         
-        // --- 4. ATTACH EVENTS AND NAME ---
-        // Get the events array and add it to the final data object payload
-        data['events[]'] = formData.getAll('events[]');
-
-        // Capture name for redirection
+        // --- 4. FINAL CLEANUP & ATTACH EVENTS ---
+        // Events array is converted to a string and attached to the data object payload
+        data.eventsString = formData.getAll('events[]').join(', '); 
         const userName = data.name; 
+        
+        // CRITICAL: Delete temporary fields (needed when passing data explicitly)
+        delete data.otherBranch; 
 
         submitBtn.disabled = true;
         submitBtn.textContent = "Submitting...";
@@ -231,23 +248,18 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const response = await fetch("https://writofest-2k25.onrender.com/register", { 
                 method: "POST",
-                headers: {
-                    'Content-Type': 'application/json' 
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data), 
             });
 
             if (response.ok) {
-                // SUCCESS: Redirect with personalized name
                 window.location.href = "thankyou.html?name=" + encodeURIComponent(userName);
                 
             } else if (response.status === 409) {
-                // DUPLICATE (409 Conflict)
                 const errorResult = await response.json();
                 alert(`🔔 ${errorResult.message}`);
-
+                
             } else {
-                // General Server Error (400, 500)
                 const errorResult = await response.json();
                 alert(`❌ Submission failed: ${errorResult.message || 'Internal server error. Please try again.'}`);
             }
