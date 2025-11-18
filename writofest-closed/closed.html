@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WritoFest 2K25 | Registrations Closed</title>
+
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="https://image2url.com/images/1761940071799-b748700f-9401-4a0e-b857-14c8a67bc6a0.png">
+
+  <style>
+    .closed-box {
+      padding: 35px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      max-width: 700px;
+      margin: 40px auto;
+      text-align: center;
+      color: #333;
+      font-size: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .thank-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #B100E8;
+    }
+
+    .thank-sub {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .social-links a {
+      font-size: 30px;
+      color: #000;
+      margin: 0 8px;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="mouse-glow"></div>
+
+  <script>
+    for (let i = 0; i < 60; i++) {
+      const sp = document.createElement('div');
+      sp.className = 'sparkle';
+      sp.style.left = Math.random() * 100 + 'vw';
+      sp.style.animationDelay = (Math.random() * 8) + 's';
+      sp.style.background = Math.random() > 0.5
+        ? 'radial-gradient(circle, gold, transparent)'
+        : 'radial-gradient(circle, silver, transparent)';
+      document.body.appendChild(sp);
+    }
+  </script>
+
+  <header data-aos="fade-down">
+    <h1>ScriptInk Presents</h1>
+    <img src="https://image2url.com/images/1761939760085-988c4ce8-3ad1-4c16-ac4a-7800b3d4906a.png">
+  </header>
+
+  <div class="event-title" data-aos="zoom-in">✨ WritoFest 2K25 ✨</div>
+
+  <div class="closed-box" data-aos="fade-up">
+    <div class="thank-title">🎉 THANK YOU ALL! 🎉</div>
+    <div class="thank-sub">
+      WritoFest 2K25 was a massive success because of <strong>YOU!</strong>  
+      <br><br>
+      Registrations are now officially <b>closed</b>.
+    </div>
+
+    <p>
+      Heartfelt gratitude to every participant, volunteer & supporter ❤️  
+      <br>
+      Stay tuned for more creative events by <strong>ScriptInk</strong>!
+    </p>
+
+    <br>
+
+    <h3>🌐 Follow Us</h3>
+
+    <div class="social-links">
+      <a href="https://scriptink.in" target="_blank"><i class="fas fa-globe"></i></a>
+      <a href="https://play.google.com/store/apps/details?id=com.scriptink.official" target="_blank"><i class="fab fa-google-play"></i></a>
+      <a href="https://t.me/scriptink" target="_blank"><i class="fab fa-telegram"></i></a>
+      <a href="https://instagram.com/scriptink_official" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com/company/scriptink-official" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.youtube.com/@ScriptInkOfficial" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://g.page/Scriptink" target="_blank"><i class="fas fa-map-marker-alt"></i></a>
+    </div>
+  </div>
+
+  <footer>
+    <small>Made with ❤️ by ScriptInk Team</small>
+    <p>&copy; 2025 ScriptInk. All Rights Reserved.</p>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+    const glow = document.querySelector('.mouse-glow');
+    document.addEventListener('mousemove', (e) => {
+      glow.style.left = e.pageX + 'px';
+      glow.style.top = e.pageY + 'px';
+    });
+  </script>
+
+</body>
+</html>
